@@ -7,6 +7,28 @@ class PacienteController {
     });
   }
 
+  static listarPacientesPorMedico = (req, res) => {
+    const medico = req.params.id;
+    
+    pacientes.find({ medico: medico })
+      .populate('paciente', 'nome')
+      .exec((err, pacientes) => {
+        if (err) {
+          return res.status(500).send({ message: `Erro ao buscar pacientes do médico com ID ${medico}: ${err.message}` });
+        }
+  
+        if (!pacientes || pacientes.length === 0) {
+          return res.status(404).send({ message: `Nenhuma paciente encontrado para o médico com ID ${medico}.` });
+        }
+        const numPacientes = pacientes.length;
+        res.status(200).json({
+          medico: medico,
+          numeroPacientes: numPacientes,
+          pacientes: pacientes
+        });
+      });
+  }
+
   static listarPacientePorId = (req, res) => {
     const id = req.params.id;
 

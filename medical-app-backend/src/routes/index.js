@@ -1,7 +1,8 @@
 import express from "express";
-import livros from "./consultasRoutes.js"
-import autores from "./pacientesRoutes.js"
-
+import consultas from "./consultasRoutes.js"
+import pacientes from "./pacientesRoutes.js"
+import medicos from "./medicosRoutes.js"
+import prescricoes from "./prescricoesRoutes.js"
 const routes = (app) => {
   app.route('/').get((req, res) => {
     res.status(200).send({titulo: "API Int-Sistemas"})
@@ -9,8 +10,10 @@ const routes = (app) => {
 
   app.use(
     express.json(),
-    livros,
-    autores
+    consultas,
+    pacientes,
+    medicos,
+    prescricoes
   )
 }
 

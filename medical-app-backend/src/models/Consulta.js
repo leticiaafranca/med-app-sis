@@ -3,11 +3,19 @@ import mongoose from "mongoose";
 const consultaSchema = new mongoose.Schema(
   {
     id: { type: String },
-    paciente: { type: mongoose.Schema.Types.ObjectId, ref: 'pacientes', required: true },
-    data: { type: Date, required: true },
-    descricao: { type: String, required: true },
-    medico: { type: String, required: true },
-    especialidade: { type: String }
+    dataConsulta: { type: Date, required: true },
+    motivo: { type: String, required: true },
+    diagnostico: { type: String },
+    tratamento: { type: String },
+    medico: { type: mongoose.Schema.Types.ObjectId, ref: 'medicos', required: true }, 
+    paciente: { type: mongoose.Schema.Types.ObjectId, ref: 'pacientes', required: true }, 
+    prescricao: { type: mongoose.Schema.Types.ObjectId, ref: 'prescricoes'}, 
+    horarioConsulta: { 
+        dia: { type: String, required: true },
+        horaInicio: { type: String, required: true },
+        horaFim: { type: String, required: true } 
+    },
+    observacoes: { type: String }
   }
 );
 
